@@ -1,0 +1,285 @@
+character_spritesheet.png
+size: 64, 128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blinky_down
+  rotate: false
+  xy: 42, 49
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+blinky_down
+  rotate: false
+  xy: 42, 75
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+blinky_left
+  rotate: false
+  xy: 14, 88
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+blinky_left
+  rotate: false
+  xy: 0, 88
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+blinky_right
+  rotate: false
+  xy: 28, 75
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+blinky_right
+  rotate: false
+  xy: 14, 75
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+blinky_up
+  rotate: false
+  xy: 42, 24
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 1
+blinky_up
+  rotate: false
+  xy: 28, 24
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 2
+clyde_down
+  rotate: false
+  xy: 28, 62
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+clyde_down
+  rotate: false
+  xy: 0, 75
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+clyde_left
+  rotate: false
+  xy: 42, 62
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+clyde_left
+  rotate: false
+  xy: 28, 88
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+clyde_right
+  rotate: false
+  xy: 42, 88
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+clyde_right
+  rotate: false
+  xy: 28, 101
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+clyde_up
+  rotate: false
+  xy: 0, 12
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 1
+clyde_up
+  rotate: false
+  xy: 42, 12
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 2
+inky_down
+  rotate: false
+  xy: 0, 101
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+inky_down
+  rotate: false
+  xy: 14, 101
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+inky_left
+  rotate: false
+  xy: 42, 101
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+inky_left
+  rotate: false
+  xy: 14, 62
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+inky_right
+  rotate: false
+  xy: 0, 62
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+inky_right
+  rotate: false
+  xy: 14, 36
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+inky_up
+  rotate: false
+  xy: 28, 12
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 1
+inky_up
+  rotate: false
+  xy: 14, 12
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 2
+pacman_down
+  rotate: false
+  xy: 28, 0
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 1
+pacman_down
+  rotate: false
+  xy: 14, 0
+  size: 14, 9
+  orig: 14, 9
+  offset: 0, 0
+  index: 2
+pacman_left
+  rotate: false
+  xy: 12, 114
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: 1
+pacman_left
+  rotate: false
+  xy: 24, 114
+  size: 9, 14
+  orig: 9, 14
+  offset: 0, 0
+  index: 2
+pacman_right
+  rotate: false
+  xy: 0, 114
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: 1
+pacman_right
+  rotate: false
+  xy: 33, 114
+  size: 9, 14
+  orig: 9, 14
+  offset: 0, 0
+  index: 2
+pacman_up
+  rotate: false
+  xy: 42, 0
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 1
+pacman_up
+  rotate: false
+  xy: 0, 0
+  size: 14, 9
+  orig: 14, 9
+  offset: 0, 0
+  index: 2
+pinky_down
+  rotate: false
+  xy: 14, 49
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+pinky_down
+  rotate: false
+  xy: 0, 49
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+pinky_left
+  rotate: false
+  xy: 28, 49
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+pinky_left
+  rotate: false
+  xy: 42, 36
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+pinky_right
+  rotate: false
+  xy: 28, 36
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 1
+pinky_right
+  rotate: false
+  xy: 0, 36
+  size: 14, 13
+  orig: 14, 13
+  offset: 0, 0
+  index: 2
+pinky_up
+  rotate: false
+  xy: 14, 24
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 1
+pinky_up
+  rotate: false
+  xy: 0, 24
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: 2
