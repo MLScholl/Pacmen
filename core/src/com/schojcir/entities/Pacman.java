@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+
+import static com.schojcir.entities.Pacman.IntendedDirection.*;
 
 /**
  * Created by jkraj on 12/2/2017.
@@ -29,6 +29,11 @@ public class Pacman implements GestureDetector.GestureListener{
     private Array<Sprite> pacmanDown;
     private Vector2 position = new Vector2();
     private float stateTime;
+    private IntendedDirection intendedDirection = NONE;
+
+    enum IntendedDirection{
+        LEFT, RIGHT, UP, DOWN, NONE
+    }
 
 //    private Array<TextureAtlas.AtlasRegion> currentPacman;
 
@@ -92,39 +97,73 @@ public class Pacman implements GestureDetector.GestureListener{
 
     public void update(float delta){
 
+        int x = (int) (position.x);
+        //might have to subtract 31
+        int y = (int) (position.y);
+
+        if(intendedDirection == RIGHT && collisionLayer.getCell((int) (x + 1.5), (int) (y + 0.5)) != null){
+            speed.y = 0;
+            speed.x = SPEED_CONSTANT;
+        }
+        else if(intendedDirection == LEFT && collisionLayer.getCell((int) (x + speed.x * delta), (int) (y + 0.5)) != null){
+            speed.y = 0;
+            speed.x = -SPEED_CONSTANT;
+        }
+        else if(intendedDirection == UP && collisionLayer.getCell((int) (x + 0.5), (int) (y +  speed.y * delta + 1)) != null){
+            speed.x = 0;
+            speed.y = -SPEED_CONSTANT;
+        }
+        else if(intendedDirection == DOWN && collisionLayer.getCell((int) (x + 0.5), (int) (y +  speed.y * delta)) != null){
+            speed.x = 0;
+            speed.y = SPEED_CONSTANT;
+        }
+
         float oldX = position.x;
         float oldY = position.y;
-
-        float tileWidth = collisionLayer.getTileWidth();
-        float tileHeight = collisionLayer.getTileHeight();
 
         boolean collidedX = false;
         boolean collidedY = false;
 
 //        setX(getX() + speed.x * delta);
         position.x += (speed.x * delta);
-        if(speed.x < 0){
-            collidedX = collisionLayer.getCell((int)position.x, (int)(position.y + 4)).getTile().getProperties().containsKey("blocked");
-        }
-        else if(speed.x > 0){
-            collidedX = collisionLayer.getCell((int)((position.x + 8) / tileWidth), (int)((position.y + 8 / 2) / tileHeight)).getTile().getProperties().containsKey("blocked");
-        }
+
+//        int x = (int) (position.x);
+//        //might have to subtract 31
+//        int y = (int) (position.y);
+//        if(speed.x < 0){
+////            collidedX = collisionLayer.getCell(x, (int) (y + 0.5)).getTile().getProperties().containsKey("blocked");
+//            collidedX = collisionLayer.getCell(x, (int) (y + 0.5)) == null;
+//        }
+//        else if(speed.x > 0){
+////            System.out.println("Tile ID: " + collisionLayer.getCell((int)position.x, (int)(position.y)).getTile().getId() + " Tile blocked: " + collisionLayer.getCell((int)position.x, (int)(position.y)).getTile().getProperties());
+////            collidedX = collisionLayer.getCell(x + 1, (int)(y + 0.5)).getTile().getProperties().containsKey("blocked");
+//            collidedX = collisionLayer.getCell(x + 1, (int)(y + 0.5)) == null;
+//        }
+
+        collidedX = collisionLayer.getCell((int) (x + 0.5), (int) (y + 0.5)) == null;
+
 
         if(collidedX){
+//            if(speed.y )
             position.x = oldX;
             speed.x = 0;
         }
 
 //        setY(getY() + speed.y * delta);
         position.y += (speed.y * delta);
-        if(speed.y < 0){
-            collidedY = collisionLayer.getCell((int)(position.x + 4), (int) position.y).getTile().getProperties().containsKey("blocked");
-        }
-        else if(speed.y > 0){
-            collidedY = collisionLayer.getCell((int)(position.x + 4), (int) (position.y + 8)).getTile().getProperties().containsKey("blocked");
-        }
+//        if(speed.y < 0){
+////            collidedY = collisionLayer.getCell((int)(x + 0.5), y).getTile().getProperties().containsKey("blocked");
+//            collidedY = collisionLayer.getCell((int)(x + 0.5), y) == null;
+//        }
+//        else if(speed.y > 0){
+////            collidedY = collisionLayer.getCell((int)(x + 0.5), y + 1).getTile().getProperties().containsKey("blocked");
+//            collidedY = collisionLayer.getCell((int)(x + 0.5), y + 1) == null;
+//        }
 
-        if(collidedY){
+        collidedY = collisionLayer.getCell((int) (x + 0.5), (int) (y + 0.5)) == null;
+
+
+        if(collidedY && speed.x == 0){
             position.y = oldY;
             speed.y = 0;
         }
@@ -148,22 +187,25 @@ public class Pacman implements GestureDetector.GestureListener{
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
         if(Math.abs(velocityX) > Math.abs(velocityY)){
-            speed.y = 0;
+//            speed.y = 0;
             if(velocityX > 0){
-                speed.x = SPEED_CONSTANT;
-
+//                speed.x = SPEED_CONSTANT;
+                intendedDirection = RIGHT;
             }
             else{
-                speed.x = -SPEED_CONSTANT;
+//                speed.x = -SPEED_CONSTANT;
+                intendedDirection = LEFT;
             }
         }
         else{
-            speed.x = 0;
+//            speed.x = 0;
             if(velocityY > 0){
-                speed.y = -SPEED_CONSTANT;
+//                speed.y = -SPEED_CONSTANT;
+                intendedDirection = UP;
             }
             else{
-                speed.y = SPEED_CONSTANT;
+//                speed.y = SPEED_CONSTANT;
+                intendedDirection = DOWN;
             }
         }
 

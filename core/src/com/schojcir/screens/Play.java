@@ -2,11 +2,15 @@ package com.schojcir.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.maps.tiled.AtlasTmxMapLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -36,11 +40,18 @@ public class Play implements Screen {
 
     @Override
     public void show() {
+//        mMap = new AtlasTmxMapLoader().load("maps/maze.tmx")
+//        AssetManager assetManager = new AssetManager();
+//        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+//        assetManager.load("maps/maze.tmx", TiledMap.class);
+//
+//        mMap = assetManager.get("maps/maze.tmx");
+
         mMap = new TmxMapLoader().load("maps/maze.tmx");
         mRenderer = new OrthogonalTiledMapRenderer(mMap, unitScale);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 28, 34);
-        pacman = new Pacman(new Sprite(new Texture("pacman/pacman_right_1.png")), (TiledMapTileLayer) mMap.getLayers().get(0));
+        pacman = new Pacman(new Sprite(new Texture("pacman/pacman_right_1.png")), (TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
         Gdx.input.setInputProcessor(new GestureDetector(pacman));
     }
 

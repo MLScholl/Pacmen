@@ -40,6 +40,7 @@
   <objectgroup draworder="index">
    <properties>
     <property name="blocked" type="bool" value="true"/>
+    <property name="blocked_2" value="blocked"/>
    </properties>
   </objectgroup>
  </tile>
