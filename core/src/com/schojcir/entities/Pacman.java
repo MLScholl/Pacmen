@@ -9,8 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import static com.schojcir.entities.Pacman.IntendedDirection.*;
-
 /**
  * Created by jkraj on 12/2/2017.
  */
@@ -21,31 +19,20 @@ public class Pacman implements GestureDetector.GestureListener{
 
     private Array<Sprite> pacman_sprites;
     private Vector2 speed = new Vector2();
-    private TiledMapTileLayer collisionLayer;
+    private TiledMapTileLayer playerLayer;
     private TextureAtlas pacmanSprites;
     private Array<Sprite> pacmanRight;
     private Array<Sprite> pacmanLeft;
     private Array<Sprite> pacmanUp;
     private Array<Sprite> pacmanDown;
     private Vector2 position = new Vector2();
-    private float stateTime;
-    private IntendedDirection intendedDirection = NONE;
 
-    enum IntendedDirection{
-        LEFT, RIGHT, UP, DOWN, NONE
-    }
-
-//    private Array<TextureAtlas.AtlasRegion> currentPacman;
-
-    public Pacman(Sprite sprite, TiledMapTileLayer collisionLayer){
-//        super(sprite);
-        this.collisionLayer = collisionLayer;
-        System.out.println("Tile Height: " + collisionLayer.getTileHeight() + " Tile Width: " + collisionLayer.getTileWidth());
+    public Pacman(TiledMapTileLayer playerLayer){
+        this.playerLayer = playerLayer;
+        System.out.println("Tile Height: " + playerLayer.getTileHeight() + " Tile Width: " + playerLayer.getTileWidth());
         speed.x = 0;
         speed.y = 0;
-//        setSize(1, 1);
-//        setX(13.5f);
-//        setY(31 - 24);
+
         position.x = 13.5f;
         position.y = 31 - 24;
 
@@ -97,76 +84,34 @@ public class Pacman implements GestureDetector.GestureListener{
 
     public void update(float delta){
 
-        int x = (int) (position.x);
-        //might have to subtract 31
-        int y = (int) (position.y);
-
-        if(intendedDirection == RIGHT && collisionLayer.getCell((int) (x + 1.5), (int) (y + 0.5)) != null){
-            speed.y = 0;
-            speed.x = SPEED_CONSTANT;
-        }
-        else if(intendedDirection == LEFT && collisionLayer.getCell((int) (x + speed.x * delta), (int) (y + 0.5)) != null){
-            speed.y = 0;
-            speed.x = -SPEED_CONSTANT;
-        }
-        else if(intendedDirection == UP && collisionLayer.getCell((int) (x + 0.5), (int) (y +  speed.y * delta + 1)) != null){
-            speed.x = 0;
-            speed.y = -SPEED_CONSTANT;
-        }
-        else if(intendedDirection == DOWN && collisionLayer.getCell((int) (x + 0.5), (int) (y +  speed.y * delta)) != null){
-            speed.x = 0;
-            speed.y = SPEED_CONSTANT;
-        }
-
-        float oldX = position.x;
-        float oldY = position.y;
-
         boolean collidedX = false;
         boolean collidedY = false;
 
-//        setX(getX() + speed.x * delta);
-        position.x += (speed.x * delta);
-
-//        int x = (int) (position.x);
-//        //might have to subtract 31
-//        int y = (int) (position.y);
-//        if(speed.x < 0){
-////            collidedX = collisionLayer.getCell(x, (int) (y + 0.5)).getTile().getProperties().containsKey("blocked");
-//            collidedX = collisionLayer.getCell(x, (int) (y + 0.5)) == null;
-//        }
-//        else if(speed.x > 0){
-////            System.out.println("Tile ID: " + collisionLayer.getCell((int)position.x, (int)(position.y)).getTile().getId() + " Tile blocked: " + collisionLayer.getCell((int)position.x, (int)(position.y)).getTile().getProperties());
-////            collidedX = collisionLayer.getCell(x + 1, (int)(y + 0.5)).getTile().getProperties().containsKey("blocked");
-//            collidedX = collisionLayer.getCell(x + 1, (int)(y + 0.5)) == null;
-//        }
-
-        collidedX = collisionLayer.getCell((int) (x + 0.5), (int) (y + 0.5)) == null;
-
-
-        if(collidedX){
-//            if(speed.y )
-            position.x = oldX;
-            speed.x = 0;
+        int x = (int) (position.x);
+        //might have to subtract 31
+        int y = (int) (position.y);
+        if(speed.x < 0){
+            collidedX = playerLayer.getCell(x, (int) (y)) == null;
+        }
+        else if(speed.x > 0){
+            collidedX = playerLayer.getCell(x + 1, (int)(y)) == null;
         }
 
-//        setY(getY() + speed.y * delta);
-        position.y += (speed.y * delta);
-//        if(speed.y < 0){
-////            collidedY = collisionLayer.getCell((int)(x + 0.5), y).getTile().getProperties().containsKey("blocked");
-//            collidedY = collisionLayer.getCell((int)(x + 0.5), y) == null;
-//        }
-//        else if(speed.y > 0){
-////            collidedY = collisionLayer.getCell((int)(x + 0.5), y + 1).getTile().getProperties().containsKey("blocked");
-//            collidedY = collisionLayer.getCell((int)(x + 0.5), y + 1) == null;
-//        }
-
-        collidedY = collisionLayer.getCell((int) (x + 0.5), (int) (y + 0.5)) == null;
-
-
-        if(collidedY && speed.x == 0){
-            position.y = oldY;
-            speed.y = 0;
+        if(!collidedX){
+            position.x += (speed.x * delta);
         }
+
+        if(speed.y < 0){
+            collidedY = playerLayer.getCell((int)(x), y) == null;
+        }
+        else if(speed.y > 0){
+            collidedY = playerLayer.getCell((int)(x), y + 1) == null;
+        }
+
+        if(!collidedY){
+            position.y += (speed.y * delta);
+        }
+
     }
 
     @Override
@@ -186,26 +131,36 @@ public class Pacman implements GestureDetector.GestureListener{
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
+        int x = (int) (position.x);
+        //might have to subtract 31
+        int y = (int) (position.y);
+        float delta = Gdx.graphics.getDeltaTime();
         if(Math.abs(velocityX) > Math.abs(velocityY)){
-//            speed.y = 0;
             if(velocityX > 0){
-//                speed.x = SPEED_CONSTANT;
-                intendedDirection = RIGHT;
+                if(playerLayer.getCell((int) (x + 1), (int) (y + 0.5)) != null){
+                    speed.x = SPEED_CONSTANT;
+                    speed.y = 0;
+                }
             }
             else{
-//                speed.x = -SPEED_CONSTANT;
-                intendedDirection = LEFT;
+                if(playerLayer.getCell((int) (x), (int) (y + 0.5)) != null){
+                    speed.x = -SPEED_CONSTANT;
+                    speed.y = 0;
+                }
             }
         }
         else{
-//            speed.x = 0;
             if(velocityY > 0){
-//                speed.y = -SPEED_CONSTANT;
-                intendedDirection = UP;
+                if(playerLayer.getCell((int) (x + 0.5), (int) (y)) != null){
+                    speed.y = -SPEED_CONSTANT;
+                    speed.x = 0;
+                }
             }
             else{
-//                speed.y = SPEED_CONSTANT;
-                intendedDirection = DOWN;
+                if(playerLayer.getCell((int) (x + 0.5), (int) (y + 1)) != null){
+                    speed.y = SPEED_CONSTANT;
+                    speed.x = 0;
+                }
             }
         }
 

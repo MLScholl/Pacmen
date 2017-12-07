@@ -51,7 +51,7 @@ public class Play implements Screen {
         mRenderer = new OrthogonalTiledMapRenderer(mMap, unitScale);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 28, 34);
-        pacman = new Pacman(new Sprite(new Texture("pacman/pacman_right_1.png")), (TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
+        pacman = new Pacman((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
         Gdx.input.setInputProcessor(new GestureDetector(pacman));
     }
 
