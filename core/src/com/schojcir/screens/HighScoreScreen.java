@@ -2,6 +2,7 @@ package com.schojcir.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -141,10 +142,10 @@ public class HighScoreScreen implements Screen {
         scores[3] = "634";
         scores[4] = "623";
         scores[5] = "597";
-        scores[6] = "562";
-        scores[7] = "532";
-        scores[8] = "506";
-        scores[9] = "497";
+        scores[6] = "432";
+        scores[7] = "144";
+        scores[8] = "142";
+        scores[9] = "100";
 
         users[0] = "Mike";
         users[1] = "Jim";
@@ -156,6 +157,12 @@ public class HighScoreScreen implements Screen {
         users[7] = "Greg";
         users[8] = "Lexi";
         users[9] = "Joe";
+
+        Preferences prefs = Gdx.app.getPreferences("high_score");
+        if(prefs.getInteger("score", -1) != -1) {
+            scores[7] = Integer.toString(prefs.getInteger("score"));
+            users[7] = prefs.getString("name", "nothing");
+        }
 
     }
 }

@@ -1,6 +1,8 @@
 package com.schojcir.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,6 +14,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.schojcir.pacmen.Pacmen;
+import com.schojcir.screens.TitleScreen;
+
+import static com.badlogic.gdx.Gdx.input;
 
 /**
  * Created by jkraj on 12/2/2017.
@@ -40,7 +46,11 @@ public class Pacman implements GestureDetector.GestureListener{
 
     private float stateTime = 0f;
 
-    public Pacman(TiledMapTileLayer playerLayer){
+    private Pacmen game;
+
+    public Pacman(TiledMapTileLayer playerLayer, Pacmen game){
+
+        this.game = game;
 
         this.playerLayer = playerLayer;
         System.out.println("Tile Height: " + playerLayer.getTileHeight() + " Tile Width: " + playerLayer.getTileWidth());
@@ -49,7 +59,6 @@ public class Pacman implements GestureDetector.GestureListener{
 
         font = new BitmapFont();
         font.getData().setScale(1/16f);
-
 
         position.x = 13.5f;
         position.y = 31 - 24;
@@ -126,6 +135,25 @@ public class Pacman implements GestureDetector.GestureListener{
         if(cell != null && cell.getTile().getId() == 94){
             score += 1;
             cell.setTile(emptyTile);
+        }
+
+        if(score >= 244){
+//            final String[] name = new String[1];
+//            Gdx.input.getTextInput(new Input.TextInputListener() {
+//                @Override
+//                public void input(String text) {
+//                    name[0] = text;
+//                }
+//
+//                @Override
+//                public void canceled() {
+//
+//                }
+//            }, "Enter your name", "", "");
+            Preferences prefs = Gdx.app.getPreferences("high_score");
+            prefs.putInteger("score", score);
+            prefs.putString("name", "Player");
+            game.setScreen(new TitleScreen(game));
         }
 
     }

@@ -61,11 +61,12 @@ public class Play implements Screen {
         mRenderer = new OrthogonalTiledMapRenderer(mMap, unitScale);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 28, 34);
-        pacman = new Pacman((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
+        pacman = new Pacman((TiledMapTileLayer) mMap.getLayers().get("Player Layer"), game);
         blinky = new Blinky((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
         inky = new Inky((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
         pinky = new Pinky((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
         clyde = new Clyde((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
+
         Gdx.input.setInputProcessor(new GestureDetector(pacman));
     }
 
