@@ -16,7 +16,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.schojcir.entities.Blinky;
+import com.schojcir.entities.Clyde;
+import com.schojcir.entities.Inky;
 import com.schojcir.entities.Pacman;
+import com.schojcir.entities.Pinky;
 import com.schojcir.pacmen.Pacmen;
 
 /**
@@ -32,6 +36,10 @@ public class Play implements Screen {
     private OrthographicCamera camera;
 
     private Pacman pacman;
+    private Blinky blinky;
+    private Inky inky;
+    private Clyde clyde;
+    private Pinky pinky;
 
     private float unitScale = 1 / 8f;
 
@@ -54,6 +62,10 @@ public class Play implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 28, 34);
         pacman = new Pacman((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
+        blinky = new Blinky((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
+        inky = new Inky((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
+        pinky = new Pinky((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
+        clyde = new Clyde((TiledMapTileLayer) mMap.getLayers().get("Player Layer"));
         Gdx.input.setInputProcessor(new GestureDetector(pacman));
     }
 
@@ -74,6 +86,10 @@ public class Play implements Screen {
 //        mRenderer.getBatch().setProjectionMatrix(camera.combined);
         mRenderer.getBatch().begin();
         pacman.draw(mRenderer.getBatch());
+        blinky.draw(mRenderer.getBatch());
+        inky.draw(mRenderer.getBatch());
+        pinky.draw(mRenderer.getBatch());
+        clyde.draw(mRenderer.getBatch());
         mRenderer.getBatch().end();
     }
 
@@ -105,5 +121,8 @@ public class Play implements Screen {
         mRenderer.dispose();
         game.dispose();
         pacman.dispose();
+        inky.dispose();
+        pinky.dispose();
+        clyde.dispose();
     }
 }

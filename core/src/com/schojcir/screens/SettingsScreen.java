@@ -32,13 +32,13 @@ public class SettingsScreen implements Screen {
         Gdx.input.setCatchBackKey(true);
 
         Table root = new Table(gameSkin);
-        root.setDebug(true);
+        //root.setDebug(true);
         root.setBackground("bg");
         root.setFillParent(true);
         stage.addActor(root);
 
         Table booth = new Table(gameSkin);
-        booth.setDebug(true);
+        //booth.setDebug(true);
         booth.setBackground("boothscore");
         root.add(booth).fillY().fillX().expandX().expandY();
 

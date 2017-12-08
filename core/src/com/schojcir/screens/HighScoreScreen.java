@@ -13,6 +13,8 @@ import com.schojcir.pacmen.Pacmen;
 
 import java.util.PriorityQueue;
 
+import javax.naming.Context;
+
 import static com.schojcir.pacmen.Pacmen.gameSkin;
 
 /**
@@ -132,6 +134,7 @@ public class HighScoreScreen implements Screen {
     }
 
     public void fillTables() {
+
         scores[0] = "823";
         scores[1] = "734";
         scores[2] = "703";
