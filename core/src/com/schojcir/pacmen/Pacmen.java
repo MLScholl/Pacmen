@@ -48,8 +48,9 @@ public class Pacmen extends Game {
 	@Override
 	public void render () {
 		super.render();
+		//Gdx.input.setCatchBackKey(true);
 	}
-	
+
 	@Override
 	public void dispose () {
 		super.dispose();

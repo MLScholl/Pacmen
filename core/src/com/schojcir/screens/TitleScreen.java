@@ -2,6 +2,7 @@ package com.schojcir.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -40,32 +41,33 @@ public class TitleScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
+        Gdx.input.setCatchBackKey(true);
+
         Table root = new Table(gameSkin);
+        //root.setDebug(true);
         root.setBackground("bg");
         root.setFillParent(true);
         stage.addActor(root);
 
         Table booth = new Table(gameSkin);
-        booth.setDebug(true);
+        //booth.setDebug(true);
 
         booth.setBackground("booth");
-        root.add(booth).size(1000, 1500).expand().bottom();
-
-        root.setDebug(true);
+        root.add(booth).fillX().fillY().expandX().expandY();
 
         Label label = new Label("Pacmen Arcade", gameSkin, "title");
-        booth.add(label).padTop(50);
+        booth.add(label).padTop(75);
 
         booth.row();
         label = new Label("INSERT COIN(S)\nTO CONTINUE\n7", gameSkin, "screen");
-        label.setScale(2);
+        label.setFontScale(2);
         label.setAlignment(Align.center);
-        booth.add(label).padTop(400.0f);
+        booth.add(label).padTop(500.0f);
 
 
         booth.row().expandX();
         Table table = new Table();
-        table.setDebug(true);
+        //table.setDebug(true);
 
         booth.add(table).expandY().bottom();
         Stack stack = new Stack();
@@ -167,6 +169,16 @@ public class TitleScreen implements Screen {
         stack.add(image);
 
         button = new Button(gameSkin, "red");
+        button.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new HighScoreScreen(game));
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
         container = new Container(button);
         container.size(150,150);
         container.center();
@@ -181,6 +193,16 @@ public class TitleScreen implements Screen {
         button = new Button(gameSkin, "blue");
 
         container = new Container(button);
+        button.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new SettingsScreen(game));
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
         container.size(150,150);
         container.center();
         stack.add(container);
@@ -192,6 +214,16 @@ public class TitleScreen implements Screen {
         stack.add(image);
 
         button = new Button(gameSkin);
+        button.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.exit();
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
         container = new Container(button);
         container.size(150,150);
         container.center();
@@ -224,6 +256,7 @@ public class TitleScreen implements Screen {
 
         stage.act(Gdx.graphics.getRawDeltaTime());
         stage.draw();
+
 
     }
 

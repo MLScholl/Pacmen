@@ -11,6 +11,13 @@ bg
   orig: 400, 400
   offset: 0, 0
   index: -1
+boothscore
+  rotate: false
+  xy: 100, 420
+  size: 395, 380
+  orig: 395, 380
+  offset: 0, 0
+  index: -1
 booth
   rotate: false
   xy: 1, 240

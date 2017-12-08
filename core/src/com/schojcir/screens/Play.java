@@ -1,6 +1,7 @@
 package com.schojcir.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
@@ -36,6 +37,7 @@ public class Play implements Screen {
 
     public Play(Pacmen game){
         this.game = game;
+        Gdx.input.setCatchBackKey(true);
     }
 
     @Override
@@ -59,6 +61,11 @@ public class Play implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            game.setScreen(new TitleScreen(game));
+        }
 
         camera.update();
         mRenderer.setView(camera);
